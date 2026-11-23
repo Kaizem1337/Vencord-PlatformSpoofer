@@ -15,14 +15,9 @@ export type PlatformKey =
     | "off";
 
 export interface SpoofProperties {
-    os: string;
+    os?: string;
     browser: string;
     device: string;
-    browser_user_agent: string;
-    browser_version: string;
-    os_version: string;
-    referrer: string;
-    referring_domain: string;
 }
 
 export interface PlatformPreset {
@@ -62,14 +57,8 @@ export const PLATFORM_PRESETS: Record<PlatformKey, PlatformPreset> = {
         iconPath: ICON_VR,
         iconViewBox: "0 4 24 16",
         properties: {
-            os: "Console",
             browser: "Discord VR",
             device: "VR-Headset",
-            browser_user_agent: "DiscordVR/12.45",
-            browser_version: "23.7.91",
-            os_version: "10.0.45",
-            referrer: "",
-            referring_domain: "",
         },
     },
     ios: {
@@ -83,11 +72,6 @@ export const PLATFORM_PRESETS: Record<PlatformKey, PlatformPreset> = {
             os: "iOS",
             browser: "Discord iOS",
             device: "iPhone16,2",
-            browser_user_agent: "Discord/268.0 CFNetwork/1474 Darwin/23.0.0",
-            browser_version: "268.0",
-            os_version: "17.4.1",
-            referrer: "",
-            referring_domain: "",
         },
     },
     android: {
@@ -101,11 +85,6 @@ export const PLATFORM_PRESETS: Record<PlatformKey, PlatformPreset> = {
             os: "Android",
             browser: "Discord Android",
             device: "Pixel 8",
-            browser_user_agent: "Discord-Android/214116;ROM:13;Device:Pixel 8",
-            browser_version: "214.116",
-            os_version: "13",
-            referrer: "",
-            referring_domain: "",
         },
     },
     xbox: {
@@ -116,15 +95,8 @@ export const PLATFORM_PRESETS: Record<PlatformKey, PlatformPreset> = {
         iconPath: ICON_CONSOLE,
         iconViewBox: "0 0 24 24",
         properties: {
-            os: "Console",
             browser: "Discord Embedded",
             device: "Xbox Series X",
-            browser_user_agent:
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; Xbox; Xbox Series X) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586",
-            browser_version: "",
-            os_version: "",
-            referrer: "",
-            referring_domain: "",
         },
     },
     playstation: {
@@ -135,53 +107,32 @@ export const PLATFORM_PRESETS: Record<PlatformKey, PlatformPreset> = {
         iconPath: ICON_CONSOLE,
         iconViewBox: "0 0 24 24",
         properties: {
-            os: "Console",
             browser: "Discord Embedded",
             device: "PlayStation 5",
-            browser_user_agent:
-                "Mozilla/5.0 (PlayStation 5 3.11) AppleWebKit/605.1.15 (KHTML, like Gecko)",
-            browser_version: "",
-            os_version: "",
-            referrer: "",
-            referring_domain: "",
         },
     },
     web: {
         key: "web",
         label: "Web Browser",
         shortLabel: "Web",
-        description: "Spoofs Discord Web on Chrome.",
+        description: "Spoofs Discord Web.",
         iconPath: ICON_WEB,
         iconViewBox: "0 0 24 24",
         properties: {
-            os: "Windows",
             browser: "Discord Web",
             device: "",
-            browser_user_agent:
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-            browser_version: "124.0.0.0",
-            os_version: "10",
-            referrer: "",
-            referring_domain: "",
         },
     },
     desktop: {
         key: "desktop",
         label: "Desktop Client",
         shortLabel: "Desktop",
-        description: "Spoofs the Windows desktop client.",
+        description: "Spoofs the desktop client.",
         iconPath: ICON_DESKTOP,
         iconViewBox: "0 0 24 24",
         properties: {
-            os: "Windows",
             browser: "Discord Client",
             device: "",
-            browser_user_agent:
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-            browser_version: "124.0.0.0",
-            os_version: "10",
-            referrer: "",
-            referring_domain: "",
         },
     },
     off: {

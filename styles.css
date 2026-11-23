@@ -117,3 +117,26 @@
     font-size: 12px;
     line-height: 1.45;
 }
+
+.vc-ps-updater {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding-top: 8px;
+    border-top: 1px solid var(--background-modifier-accent);
+}
+
+.vc-ps-version {
+    color: var(--text-muted);
+    font-size: 12px;
+    font-family: var(--font-code);
+}
+
+.vc-ps-updater-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}

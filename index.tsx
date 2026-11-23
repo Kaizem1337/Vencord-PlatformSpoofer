@@ -15,14 +15,17 @@ import {
     forceIdentify,
     getGatewayConnectionStore,
     handleConnectionOpen,
+    installExperimentInterceptor,
     isSocketPatched,
     patchGatewaySocket,
+    removeExperimentInterceptor,
     scheduleForceIdentify,
     unpatchGatewaySocket,
 } from "./gateway";
 import { PLATFORM_KEYS, PLATFORM_PRESETS } from "./platforms";
 import { getSelectedPlatform, settings, switchPlatform } from "./settings";
 import { SettingsPanel } from "./SettingsPanel";
+import { checkUpdates } from "./updater";
 
 const PLATFORM_SETTING_PATH = "plugins.PlatformSpoofer.platform";
 
@@ -42,8 +45,8 @@ export default definePlugin({
     settingsAboutComponent: SettingsPanel,
 
     flux: {
-        CONNECTION_OPEN() {
-            handleConnectionOpen();
+        CONNECTION_OPEN(event) {
+            handleConnectionOpen(event);
         },
     },
 
@@ -75,6 +78,11 @@ export default definePlugin({
                     label="Reconnect & Re-Identify"
                     action={() => forceIdentify({ showFeedback: true })}
                 />
+                <Menu.MenuItem
+                    id="platform-spoofer-update"
+                    label="Check for Updates"
+                    action={() => checkUpdates(false)}
+                />
             </>
         );
     },
@@ -82,14 +90,20 @@ export default definePlugin({
     start() {
         configureGatewayHooks(
             () => getSelectedPlatform(),
-            () => Boolean(settings.store.showToasts)
+            () => Boolean(settings.store.showToasts),
+            () => Boolean(settings.store.preserveExperiments)
         );
 
+        installExperimentInterceptor();
         SettingsStore.addChangeListener(PLATFORM_SETTING_PATH, onPlatformSettingChange);
 
         const patched = patchGatewaySocket();
         if (patched && getGatewayConnectionStore()?.isConnected() && getSelectedPlatform() !== "off") {
             forceIdentify({ showFeedback: false });
+        }
+
+        if (settings.store.autoCheckUpdates) {
+            setTimeout(() => checkUpdates(true), 5000);
         }
     },
 
@@ -97,6 +111,7 @@ export default definePlugin({
         SettingsStore.removeChangeListener(PLATFORM_SETTING_PATH, onPlatformSettingChange);
         const wasSpoofing = getSelectedPlatform() !== "off" && isSocketPatched();
         unpatchGatewaySocket();
+        removeExperimentInterceptor();
 
         if (wasSpoofing && getGatewayConnectionStore()?.isConnected()) {
             forceIdentify({ showFeedback: false, skipPatch: true });

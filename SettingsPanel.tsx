@@ -10,11 +10,20 @@ import { Flex } from "@components/Flex";
 import { Heading } from "@components/Heading";
 import { Paragraph } from "@components/Paragraph";
 import { classes } from "@utils/misc";
-import { SessionsStore, useStateFromStores } from "@webpack/common";
+import { SessionsStore, useEffect, useState, useStateFromStores } from "@webpack/common";
 
 import { forceIdentify } from "./gateway";
 import { PLATFORM_KEYS, PLATFORM_PRESETS, PlatformKey } from "./platforms";
 import { settings, switchPlatform } from "./settings";
+import {
+    checkUpdates,
+    getUpdateState,
+    installUpdateNow,
+    openReleasePage,
+    PLUGIN_VERSION,
+    relaunchDiscord,
+    subscribeUpdateState,
+} from "./updater";
 
 interface SessionInfo {
     sessionId: string;
@@ -60,6 +69,12 @@ export function SettingsPanel() {
     const { platform } = settings.use(["platform"]);
     const currentKey: PlatformKey = platform && platform in PLATFORM_PRESETS ? (platform as PlatformKey) : "vr";
     const currentPreset = PLATFORM_PRESETS[currentKey];
+
+    const [updateState, setUpdateState] = useState(getUpdateState);
+
+    useEffect(() => {
+        return subscribeUpdateState(() => setUpdateState(getUpdateState()));
+    }, []);
 
     const sessions = useStateFromStores([SessionsStore], () => {
         const raw = SessionsStore?.getSessions?.();
@@ -139,6 +154,55 @@ export function SettingsPanel() {
                                 })
                             ) : (
                                 <Paragraph className="vc-ps-note">No active sessions.</Paragraph>
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="vc-ps-updater">
+                        <span className="vc-ps-version">
+                            {updateState.installed
+                                ? `Updated to v${updateState.latestVersion} — restart required`
+                                : updateState.hasUpdate
+                                    ? `Update available: v${PLUGIN_VERSION} -> v${updateState.latestVersion}`
+                                    : updateState.error
+                                        ? `v${PLUGIN_VERSION} (check failed)`
+                                        : `PlatformSpoofer v${PLUGIN_VERSION}`}
+                        </span>
+
+                        <div className="vc-ps-updater-actions">
+                            {updateState.installed ? (
+                                <Button size="small" variant="positive" onClick={relaunchDiscord}>
+                                    Relaunch Discord
+                                </Button>
+                            ) : updateState.hasUpdate ? (
+                                <>
+                                    {updateState.canAutoInstall && (
+                                        <Button
+                                            size="small"
+                                            variant="positive"
+                                            disabled={updateState.installing}
+                                            onClick={() => installUpdateNow()}
+                                        >
+                                            {updateState.installing ? "Updating..." : "Update Now"}
+                                        </Button>
+                                    )}
+                                    <Button
+                                        size="small"
+                                        variant="secondary"
+                                        onClick={() => openReleasePage(updateState.releaseUrl)}
+                                    >
+                                        View Release
+                                    </Button>
+                                </>
+                            ) : (
+                                <Button
+                                    size="small"
+                                    variant="secondary"
+                                    disabled={updateState.checking}
+                                    onClick={() => checkUpdates(false)}
+                                >
+                                    {updateState.checking ? "Checking..." : "Check for Updates"}
+                                </Button>
                             )}
                         </div>
                     </div>

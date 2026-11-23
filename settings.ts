@@ -23,6 +23,20 @@ export const settings = definePluginSettings({
         })),
         onChange: () => scheduleForceIdentify(true),
     },
+    preserveExperiments: {
+        type: OptionType.BOOLEAN,
+        displayName: "Preserve Desktop Features & Performance",
+        description: "Keep your real Desktop experiments (badge toggles, UI features, performance flags) active while spoofing.",
+        default: true,
+        restartNeeded: false,
+    },
+    autoCheckUpdates: {
+        type: OptionType.BOOLEAN,
+        displayName: "Check for Updates on Startup",
+        description: "Automatically check GitHub Releases for newer versions of PlatformSpoofer.",
+        default: true,
+        restartNeeded: false,
+    },
     showToasts: {
         type: OptionType.BOOLEAN,
         displayName: "Show Notifications",
