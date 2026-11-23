@@ -2,11 +2,15 @@
 
 Vencord userplugin to spoof your Discord client platform status icon (VR Headset, iOS, Android, Xbox, PlayStation, Web, or Desktop).
 
-## Install
+## Quick Install (Drag & Drop)
+
+Download `Vencord-PlatformSpoofer-dist.zip` from [Releases](https://github.com/Kaizem1337/Vencord-PlatformSpoofer/releases/latest), unzip it, drop the `dist` folder into your Vencord folder (`%AppData%\Vencord` on Windows), restart Discord, and enable **PlatformSpoofer** in Vencord Plugins.
+
+## Build From Source
 
 1. Clone this repo into your Vencord `src/userplugins/platformSpoofer` directory:
    ```bash
-   git clone https://github.com/Kaizem1337/vencord-platform-spoofer src/userplugins/platformSpoofer
+   git clone https://github.com/Kaizem1337/Vencord-PlatformSpoofer src/userplugins/platformSpoofer
    ```
 2. Build and inject Vencord:
    ```bash
