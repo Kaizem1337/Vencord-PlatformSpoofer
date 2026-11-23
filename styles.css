@@ -1,0 +1,119 @@
+.vc-ps-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.vc-ps-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.vc-ps-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: var(--background-tertiary);
+    border: 1px solid var(--background-modifier-accent);
+    color: var(--text-normal);
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.vc-ps-badge-icon {
+    color: var(--status-positive, #23a55a);
+    flex-shrink: 0;
+}
+
+.vc-ps-badge-icon.vc-ps-off {
+    color: var(--text-muted);
+}
+
+.vc-ps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+    gap: 8px;
+}
+
+.vc-ps-tile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--background-modifier-accent);
+    background: var(--background-secondary);
+    color: var(--text-normal);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: left;
+    transition: background-color 0.12s ease, border-color 0.12s ease;
+}
+
+.vc-ps-tile:hover {
+    background: var(--background-modifier-hover);
+}
+
+.vc-ps-tile.vc-ps-tile-active {
+    background: var(--background-modifier-selected);
+    border-color: var(--brand-500, #5865f2);
+}
+
+.vc-ps-tile-icon {
+    flex-shrink: 0;
+    color: var(--text-muted);
+}
+
+.vc-ps-tile.vc-ps-tile-active .vc-ps-tile-icon {
+    color: var(--status-positive, #23a55a);
+}
+
+.vc-ps-sessions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.vc-ps-session-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: var(--background-tertiary);
+    color: var(--text-normal);
+    font-size: 12px;
+    font-family: var(--font-code);
+}
+
+.vc-ps-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--status-positive, #23a55a);
+}
+
+.vc-ps-dot-idle {
+    background: var(--status-warning, #f0b232);
+}
+
+.vc-ps-dot-dnd {
+    background: var(--status-danger, #f23f43);
+}
+
+.vc-ps-dot-offline {
+    background: var(--text-muted);
+}
+
+.vc-ps-note {
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1.45;
+}
